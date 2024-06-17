@@ -15,7 +15,7 @@ public class QuestionsBase {
         questions.add(new Question("Q4", List.of("a1","a2"),1));
     }
 
-    public QuestionsBase getInstance(){
+    public static QuestionsBase getInstance(){
         if(instance == null){
             instance = new QuestionsBase();
         }
