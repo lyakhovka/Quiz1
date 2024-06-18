@@ -1,5 +1,5 @@
 
-<%@ page import="Question" %>
+<%@ page import="org.javarush.module3.Question" %>
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <!DOCTYPE html>
 <html>
@@ -24,7 +24,7 @@
                     <p class="question-text"><%=questionText%></p>
                 </div>
             </c:if>
-            <div class="quiz-info"><p>Question ${sessionScope.currentQuestionIndex +1} out of ${sessionScope.totalQuestions}</p></div>
+            <div class="quiz-info"><p>org.javarush.module3.Question ${sessionScope.currentQuestionIndex +1} out of ${sessionScope.totalQuestions}</p></div>
         </div>
         <div class="quiz-options">
             <div class="form-check">

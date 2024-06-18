@@ -8,7 +8,7 @@
 <div class="start">
     <h2>Welcome to the Gardening Quiz</h2>
     <p>This quiz may help you to check whether you are familiar with the basics of gardening.</p>
-    <a class="start-button" href = "quiz"></a>
+    <a class="start-button" href = "quiz">START</a>
 </div>
 </body>
 </html>
