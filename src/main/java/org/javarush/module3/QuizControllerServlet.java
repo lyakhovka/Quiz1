@@ -1,3 +1,5 @@
+package org.javarush.module3;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -18,7 +20,7 @@ public class QuizControllerServlet extends HttpServlet {
 
         if(!questions.isEmpty()){
             session.setAttribute("currentQuestion", questions.get(0));
-            session.setAttribute("currentQuestionIndex", questions.get(0));
+            session.setAttribute("currentQuestionIndex", 0);
             session.setAttribute("totalQuestions", questions.size());
             getServletContext().getRequestDispatcher("/quiz.jsp").forward(req, resp);
         }
