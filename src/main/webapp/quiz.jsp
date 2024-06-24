@@ -8,7 +8,7 @@
 <head>
     <title>Gardening Quiz</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="/scrypt.js"></script>
+    <script type="text/javascript" src="script.js"></script>
 </head>
 <body>
 <div class="container">
@@ -45,11 +45,12 @@
             %>
         </div>
         <div class="quiz-submit">
-            <input type="submit" class="btn" id="submit-button" value="SubmitAnswer" onclick="validateAnswer()"/>
+            <input type="submit" class="btn" id="submit-button" value="SubmitAnswer" onclick="return validateAnswer()"/>
         </div>
         <div>
             <div class="hidden-element" id="answer-alert">
-                ${message}
+<%--                ${message}--%>
+            <%=session.getAttribute("message")%>
             </div>
         </div>
     </form>
