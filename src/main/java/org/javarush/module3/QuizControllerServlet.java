@@ -9,7 +9,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/quiz")
+@WebServlet(value="/quiz")
 public class QuizControllerServlet extends HttpServlet {
 
     @Override
@@ -20,7 +20,7 @@ public class QuizControllerServlet extends HttpServlet {
 
         if(!questions.isEmpty()){
             session.setAttribute("currentQuestion", questions.get(0));
-            session.setAttribute("currentQuestionIndex", 0);
+            session.setAttribute("currentQuestionIndex", 1);
             session.setAttribute("totalQuestions", questions.size());
             getServletContext().getRequestDispatcher("/quiz.jsp").forward(req, resp);
         }
@@ -40,13 +40,14 @@ public class QuizControllerServlet extends HttpServlet {
                 int userAnswer = Integer.parseInt(userAnswerStr);
 
                 if (userAnswer == currentQuestion.getCorrectAnswer()){
-                    session.setAttribute("message", "Correct answer");
-
+                    session.setAttribute("message", "Correct!");
+                    Thread.sleep(2000);
                 }
                 else {
-                    session.setAttribute("message", "Wrong answer");
+                    session.setAttribute("message", "Incorrect.");
+                    Thread.sleep(2000);
                 }
-            }catch (NumberFormatException e){
+            }catch (NumberFormatException | InterruptedException e){
                 session.setAttribute("message", "Error parsing user answer");
             }
         }
@@ -62,8 +63,8 @@ public class QuizControllerServlet extends HttpServlet {
         session.setAttribute("currentQuestionIndex", currentQuestionIndex);
         session.setAttribute("totalQuestions", questions.size());
 
-        if(currentQuestionIndex<questions.size()-1){
-            Question nextQuestion = questions.get(currentQuestionIndex+1);
+        if(currentQuestionIndex <= questions.size()-1){
+            Question nextQuestion = questions.get(currentQuestionIndex-1+1);
             session.setAttribute("currentQuestion", nextQuestion);
             session.setAttribute("currentQuestionIndex", currentQuestionIndex+1);
             resp.sendRedirect("quiz.jsp");
