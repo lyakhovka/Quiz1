@@ -8,7 +8,7 @@
 <head>
     <title>Gardening Quiz</title>
     <link rel="stylesheet" type="text/css" href="style.css">
-    <script type="text/javascript" src="scrypt.js"></script>
+    <script type="text/javascript" src="/scrypt.js"></script>
 </head>
 <body>
 <div class="container">
@@ -31,7 +31,7 @@
             }
         %>
 
-        <div class="quiz-info"><p>Question ${sessionScope.currentQuestionIndex +1} out of ${sessionScope.totalQuestions}</p></div>
+        <div class="quiz-info"><p>Question <%=session.getAttribute("currentQuestionIndex")%> out of <%=session.getAttribute("totalQuestions")%></p></div>
         </div>
         <div class="quiz-options">
             <% for(int i=0; i<answers.size(); i++){
@@ -45,7 +45,7 @@
             %>
         </div>
         <div class="quiz-submit">
-            <input type="submit" class="btn" id="submit-button" value="SubmitAnswer" onclick="return validateAnswer();"/>
+            <input type="submit" class="btn" id="submit-button" value="SubmitAnswer" onclick="validateAnswer()"/>
         </div>
         <div>
             <div class="hidden-element" id="answer-alert">

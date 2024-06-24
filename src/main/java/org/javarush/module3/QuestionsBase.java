@@ -11,10 +11,10 @@ public class QuestionsBase {
     private  QuestionsBase(){
         questions = new ArrayList<Question>();
 
-        questions.add(new Question("Q1", List.of("a1","a2"),1));
-        questions.add(new Question("Q2", List.of("a1","a2"),1));
-        questions.add(new Question("Q3", List.of("a1","a2"),1));
-        questions.add(new Question("Q4", List.of("a1","a2"),1));
+        questions.add(new Question("Q1", List.of("a1","a2"),0));
+        questions.add(new Question("Q2", List.of("a1","a2"),0));
+        questions.add(new Question("Q3", List.of("a1","a2"),0));
+        questions.add(new Question("Q4", List.of("a1","a2"),0));
     }
 
     public static QuestionsBase getInstance(){

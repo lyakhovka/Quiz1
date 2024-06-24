@@ -1,6 +1,7 @@
 
 function validateAnswer(){
     let selectedOption = document.querySelector('input[name="userAnswer"]:checked');
+    console.log(selectedOption.innerHTML);
     let answerAlert = document.getElementById('answer-alert');
 
     if(!selectedOption){

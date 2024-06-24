@@ -8,7 +8,7 @@
 <body>
 <div class="card">
   <h2>Congratulations! You've got a green thumb!</h2>
-  <a class="btn-easy" href="index.jsp">Start page</a>
+  <a class="btn-easy" href="../index.jsp">Start page</a>
 </div>
 </body>
 </html>
