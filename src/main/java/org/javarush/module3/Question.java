@@ -1,11 +1,13 @@
+package org.javarush.module3;
+
 import java.util.List;
 import java.util.Objects;
 
 public class Question {
 
-     private String question;
-     private List<String> answers;
-     private int correctAnswer;
+    private String question;
+    private List<String> answers;
+    private int correctAnswer;
 
     public String getQuestion() {
         return question;
@@ -14,11 +16,11 @@ public class Question {
     public List<String> getAnswers() {
         return answers;
     }
+
     public int getCorrectAnswer() {
         return correctAnswer;
     }
 
-//    public void setAnswers(List<String> answers) {}
     public Question(String question, List<String> answers, int correctAnswer) {
         this.question = question;
         this.answers = answers;

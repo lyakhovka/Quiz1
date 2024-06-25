@@ -1,0 +1,140 @@
+.answer-alert-class{
+    display: none;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.start-container {
+    text-align: center; /* Center-align text within the div */
+    width: 900px; /* Adjust this width as needed */
+    height: 250px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 40px;
+
+}
+
+/* Styling for the start section */
+.container {
+    text-align: center; /* Center-align text within the div */
+    width: 900px; /* Adjust this width as needed */
+    height: 600px;
+    padding: 20px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.quiz-header {
+    font-size: 24px;
+    margin-top: 0;
+}
+.quiz-description {
+    font-size: 18px;
+    font-weight: bold;
+    color: #666;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #0056b3;
+}
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.btn:hover {
+    background-color: #0056b3;
+}
+/* Question container */
+.question-container {
+    margin-bottom: 30px;
+}
+
+.question-text {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* Quiz options styling */
+.quiz-options {
+    margin-top: 10px;
+    margin-left: 250px;
+    text-align: left;
+}
+.quiz-options-container{
+    margin-bottom: 30px;
+}
+
+.form-check {
+    margin-bottom: 10px;
+}
+
+.form-check-input {
+    margin-right: 10px;
+}
+
+.form-check-label {
+    cursor: pointer;
+}
+/* Submit button */
+.quiz-submit {
+    margin-top: 20px;
+}
+
+.btn {
+    background-color: #007bff;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+    background-color: #0056b3;
+}
+/* Answer alert and correctness amount */
+.answer-alert-class {
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.statistics {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+/* Quiz restart button */
+.quiz-restart {
+    margin-top: 20px;
+}
+
