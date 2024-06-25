@@ -11,17 +11,22 @@ import java.util.List;
 
 @WebServlet(value="/quiz")
 public class QuizControllerServlet extends HttpServlet {
-
+int correctAnswersAmount;
+int incorrectAnswersAmount;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
 
         List<Question> questions = QuestionsBase.getInstance().getQuestions();
-
+        correctAnswersAmount = 0;
+        incorrectAnswersAmount = 0;
         if(!questions.isEmpty()){
             session.setAttribute("currentQuestion", questions.get(0));
-            session.setAttribute("currentQuestionIndex", 1);
+            session.setAttribute("currentQuestionIndex", 0);
             session.setAttribute("totalQuestions", questions.size());
+            session.setAttribute("message", "");
+            session.setAttribute("correctAnswersAmount",correctAnswersAmount);
+            session.setAttribute("incorrectAnswersAmount",incorrectAnswersAmount);
             getServletContext().getRequestDispatcher("/quiz.jsp").forward(req, resp);
         }
         else{
@@ -40,14 +45,14 @@ public class QuizControllerServlet extends HttpServlet {
                 int userAnswer = Integer.parseInt(userAnswerStr);
 
                 if (userAnswer == currentQuestion.getCorrectAnswer()){
-                    session.setAttribute("message", "Correct!");
-                    Thread.sleep(2000);
+                    session.setAttribute("message", "CORRECT!");
+                    correctAnswersAmount = correctAnswersAmount+1;
                 }
                 else {
-                    session.setAttribute("message", "Incorrect.");
-                    Thread.sleep(2000);
+                    session.setAttribute("message", "INCORRECT.");
+                    incorrectAnswersAmount = incorrectAnswersAmount+1;
                 }
-            }catch (NumberFormatException | InterruptedException e){
+            }catch (NumberFormatException e){
                 session.setAttribute("message", "Error parsing user answer");
             }
         }
@@ -63,13 +68,17 @@ public class QuizControllerServlet extends HttpServlet {
         session.setAttribute("currentQuestionIndex", currentQuestionIndex);
         session.setAttribute("totalQuestions", questions.size());
 
-        if(currentQuestionIndex <= questions.size()-1){
-            Question nextQuestion = questions.get(currentQuestionIndex-1+1);
+        if(currentQuestionIndex < questions.size()-1){
+            Question nextQuestion = questions.get(currentQuestionIndex+1);
             session.setAttribute("currentQuestion", nextQuestion);
             session.setAttribute("currentQuestionIndex", currentQuestionIndex+1);
+            session.setAttribute("correctAnswersAmount", correctAnswersAmount);
+            session.setAttribute("incorrectAnswersAmount", incorrectAnswersAmount);
             resp.sendRedirect("quiz.jsp");
         }
         else{
+            session.setAttribute("correctAnswersAmount", correctAnswersAmount);
+            session.setAttribute("incorrectAnswersAmount", incorrectAnswersAmount);
             resp.sendRedirect("quizResult.jsp");
         }
     }
@@ -78,11 +87,17 @@ public class QuizControllerServlet extends HttpServlet {
         session.removeAttribute("currentQuestion");
         session.removeAttribute("currentQuestionIndex");
         session.removeAttribute("message");
+        session.removeAttribute("correctAnswersAmount");
+        session.removeAttribute("incorrectAnswersAmount");
 
         List<Question> questions = QuestionsBase.getInstance().getQuestions();
         Question firstQuestion = questions.get(0);
         session.setAttribute("currentQuestion", firstQuestion);
         session.setAttribute("currentQuestionIndex", 0);
+        correctAnswersAmount = 0;
+        incorrectAnswersAmount = 0;
+        session.setAttribute("correctAnswersAmount", correctAnswersAmount);
+        session.setAttribute("incorrectAnswersAmount", incorrectAnswersAmount);
 
     }
 }
