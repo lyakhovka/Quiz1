@@ -9,27 +9,26 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet(value="/quiz")
+@WebServlet(value = "/quiz")
 public class QuizControllerServlet extends HttpServlet {
-int correctAnswersAmount;
-int incorrectAnswersAmount;
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         HttpSession session = req.getSession(true);
 
         List<Question> questions = QuestionsBase.getInstance().getQuestions();
-        correctAnswersAmount = 0;
-        incorrectAnswersAmount = 0;
-        if(!questions.isEmpty()){
+        QuestionsBase.getInstance().setCorrectAnswersAmount(0);
+        QuestionsBase.getInstance().setIncorrectAnswersAmount(0);
+        int correctAnswersAmount = QuestionsBase.getInstance().getCorrectAnswersAmount();
+        int incorrectAnswersAmount = QuestionsBase.getInstance().getIncorrectAnswersAmount();
+        if (!questions.isEmpty()) {
             session.setAttribute("currentQuestion", questions.get(0));
             session.setAttribute("currentQuestionIndex", 0);
             session.setAttribute("totalQuestions", questions.size());
             session.setAttribute("message", "");
-            session.setAttribute("correctAnswersAmount",correctAnswersAmount);
-            session.setAttribute("incorrectAnswersAmount",incorrectAnswersAmount);
+            session.setAttribute("correctAnswersAmount", correctAnswersAmount);
+            session.setAttribute("incorrectAnswersAmount", incorrectAnswersAmount);
             getServletContext().getRequestDispatcher("/quiz.jsp").forward(req, resp);
-        }
-        else{
+        } else {
             resp.getWriter().println("No questions found");
         }
     }
@@ -40,50 +39,51 @@ int incorrectAnswersAmount;
         Question currentQuestion = (Question) session.getAttribute("currentQuestion");
         String userAnswerStr = req.getParameter("userAnswer");
 
-        if(userAnswerStr != null && !userAnswerStr.isEmpty()){
-            try{
+        if (userAnswerStr != null && !userAnswerStr.isEmpty()) {
+            try {
                 int userAnswer = Integer.parseInt(userAnswerStr);
 
-                if (userAnswer == currentQuestion.getCorrectAnswer()){
+                if (userAnswer == currentQuestion.getCorrectAnswer()) {
                     session.setAttribute("message", "CORRECT!");
-                    correctAnswersAmount = correctAnswersAmount+1;
-                }
-                else {
+                    QuestionsBase.getInstance()
+                            .setCorrectAnswersAmount(QuestionsBase.getInstance()
+                                    .getCorrectAnswersAmount() + 1);
+                } else {
                     session.setAttribute("message", "INCORRECT.");
-                    incorrectAnswersAmount = incorrectAnswersAmount+1;
+                    QuestionsBase.getInstance()
+                            .setIncorrectAnswersAmount(QuestionsBase.getInstance()
+                                    .getIncorrectAnswersAmount() + 1);
                 }
-            }catch (NumberFormatException e){
+            } catch (NumberFormatException e) {
                 session.setAttribute("message", "Error parsing user answer");
             }
         }
 
         List<Question> questions = QuestionsBase.getInstance().getQuestions();
         int currentQuestionIndex = (Integer) session.getAttribute("currentQuestionIndex");
+        boolean restartButtonClicked = "true".equals(req.getParameter("restartButton"));
 
-        if("true".equals(req.getParameter("restartButton"))) {
+        if (restartButtonClicked) {
             restartQuiz(session);
             resp.sendRedirect("quiz.jsp");
             return;
         }
         session.setAttribute("currentQuestionIndex", currentQuestionIndex);
         session.setAttribute("totalQuestions", questions.size());
+        session.setAttribute("correctAnswersAmount", QuestionsBase.getInstance().getCorrectAnswersAmount());
+        session.setAttribute("incorrectAnswersAmount", QuestionsBase.getInstance().getIncorrectAnswersAmount());
 
-        if(currentQuestionIndex < questions.size()-1){
-            Question nextQuestion = questions.get(currentQuestionIndex+1);
+        if (currentQuestionIndex < questions.size() - 1) {
+            Question nextQuestion = questions.get(currentQuestionIndex + 1);
             session.setAttribute("currentQuestion", nextQuestion);
-            session.setAttribute("currentQuestionIndex", currentQuestionIndex+1);
-            session.setAttribute("correctAnswersAmount", correctAnswersAmount);
-            session.setAttribute("incorrectAnswersAmount", incorrectAnswersAmount);
+            session.setAttribute("currentQuestionIndex", currentQuestionIndex + 1);
             resp.sendRedirect("quiz.jsp");
-        }
-        else{
-            session.setAttribute("correctAnswersAmount", correctAnswersAmount);
-            session.setAttribute("incorrectAnswersAmount", incorrectAnswersAmount);
+        } else {
             resp.sendRedirect("quizResult.jsp");
         }
     }
 
-    private void restartQuiz(HttpSession session){
+    private void restartQuiz(HttpSession session) {
         session.removeAttribute("currentQuestion");
         session.removeAttribute("currentQuestionIndex");
         session.removeAttribute("message");
@@ -92,12 +92,12 @@ int incorrectAnswersAmount;
 
         List<Question> questions = QuestionsBase.getInstance().getQuestions();
         Question firstQuestion = questions.get(0);
+        QuestionsBase.getInstance().setCorrectAnswersAmount(0);
+        QuestionsBase.getInstance().setIncorrectAnswersAmount(0);
         session.setAttribute("currentQuestion", firstQuestion);
         session.setAttribute("currentQuestionIndex", 0);
-        correctAnswersAmount = 0;
-        incorrectAnswersAmount = 0;
-        session.setAttribute("correctAnswersAmount", correctAnswersAmount);
-        session.setAttribute("incorrectAnswersAmount", incorrectAnswersAmount);
+        session.setAttribute("correctAnswersAmount", QuestionsBase.getInstance().getCorrectAnswersAmount());
+        session.setAttribute("incorrectAnswersAmount", QuestionsBase.getInstance().getIncorrectAnswersAmount());
 
     }
 }
