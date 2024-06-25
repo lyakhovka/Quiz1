@@ -13,10 +13,17 @@
 <body>
 <div class="container">
     <div class="quiz-header">
-        <h1>Gardening Quiz</h1>
+        <h2 class="quiz-header">Gardening Quiz</h2>
     </div>
 
     <form id="quiz-form" action="/quiz" method="post">
+        <div class="quiz-description">
+            <p class="quiz-description">Question <%=(Integer)session.getAttribute("currentQuestionIndex") +1 %> out of <%=session.getAttribute("totalQuestions")%>
+            </p>
+        </div>
+        <div class="answer-alert-class" id="answer-alert">
+            <%=session.getAttribute("message")%>
+        </div>
         <div class="quiz-question">
         <% Question currentQuestion = (Question) session.getAttribute("currentQuestion");
             String questionText = currentQuestion.getQuestion();
@@ -31,12 +38,10 @@
             }
         %>
 
-        <div class="quiz-info"><p>Question <%=session.getAttribute("currentQuestionIndex")%> out of <%=session.getAttribute("totalQuestions")%></p></div>
-        </div>
-        <div class="quiz-options">
+        <div class="quiz-options-container">
             <% for(int i=0; i<answers.size(); i++){
             %>
-                <div class="form-check">
+                <div class="quiz-options">
                    <input class="form-check-input" type="radio" name="userAnswer" value=<%=i%> id="<%="option"+ i%>">
                    <label class="form-check-label" for="<%="option"+ i%>"><%=answers.get(i)%></label><br>
                 </div>
@@ -44,19 +49,19 @@
             }
             %>
         </div>
-        <div class="quiz-submit">
-            <input type="submit" class="btn" id="submit-button" value="SubmitAnswer" onclick="return validateAnswer()"/>
+        <div class="submit-button">
+            <input type="submit" class="btn" id="submit-button" value="SUBMIT ANSWER" onclick="return validateAnswer()"/>
         </div>
-        <div>
-            <div class="hidden-element" id="answer-alert">
-<%--                ${message}--%>
-            <%=session.getAttribute("message")%>
+        <div class="statistics">
+            <div id="correctness-amount">
+                <p>Correct answers: <%=session.getAttribute("correctAnswersAmount")%>. Incorrect answers: <%=session.getAttribute("incorrectAnswersAmount")%>
+                </p>
             </div>
         </div>
     </form>
 
     <div class="quiz-restart">
-        <button class="btn" onclick="restartGame();">Restart</button>
+        <button class="btn" onclick="restartGame();">RESTART</button>
     </div>
 </div>
 
