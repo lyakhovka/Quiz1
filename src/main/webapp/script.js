@@ -3,63 +3,31 @@ function validateAnswer(){
     let selectedOption = document.querySelector('input[name="userAnswer"]:checked');
     let answerAlert = document.getElementById('answer-alert');
     if(!selectedOption){
-        answerAlert.style.display = 'block';
         return false;
     }
     else {
-        answerAlert.style.display = 'none';
         return true;
     }
 }
 
 function validateForm(){
     let answerAlert = document.getElementById('answer-alert');
-    if(answerAlert.innerText.trim()==="Incorrect."){
-        makeScreenRed()
-        document.getElementById('quiz-form').style.display = 'none';
-        // document.getElementById('timer-message').innerHTML = "Wrong answer. Game is over.";
-        answerAlert.style.display='block';
-        document.getElementById('reset-button').style.display='block';
+    if(answerAlert.innerText.trim()==="INCORRECT."){
+        answerAlert.style.display = 'block';
+        answerAlert.style.color = 'red';
+        answerAlert.style.backgroundColor = '#ffc107';
+        setTimeout(function() {
+            answerAlert.style.display = 'none';
+        }, 300);
         }
-    else if (answerAlert.innerText.trim()==="Correct!") {
-        makeScreenGreen();
+    else if (answerAlert.innerText.trim()==="CORRECT!") {
+        answerAlert.style.display = 'block';
+        answerAlert.style.color = 'green';
+        answerAlert.style.backgroundColor = '#d1f9c9';
+        setTimeout(function() {
+            answerAlert.style.display = 'none';
+        }, 300);
     }
-}
-
-function makeScreenGreen(){
-    document.body.style.backgroundColor = 'rgba(144, 238, 144, 50)';
-    // let opacity = 1;
-    // const interval = 20;
-    // const duration = 1000;
-    // const steps = duration/interval;
-    //
-    // const intervalId = setInterval(function(){
-    //     document.body.style.backgroundColor = 'rgba(144, 238, 144, ${opacity})';
-    //     opacity -=1/steps;
-    //
-    //     if(opacity <=0){
-    //         clearInterval(intervalId);
-    //         document.body.style.backgroundColor='';
-    //     }
-    // }, interval);
-}
-
-function makeScreenRed(){
-    document.body.style.backgroundColor = 'rgba(220, 20, 60, 50)';
-    // let opacity = 1;
-    // const interval = 20;
-    // const duration = 1500;
-    // const steps = duration/interval;
-    //
-    // const intervalId = setInterval(function(){
-    //     document.body.style.backgroundColor = 'rgba(220, 20, 60, ${opacity})';
-    //     opacity -=1/steps;
-    //
-    //     if(opacity <=0){
-    //         clearInterval(intervalId);
-    //         document.body.style.backgroundColor='';
-    //     }
-    // }, interval);
 }
 
 window.onload = function (){
