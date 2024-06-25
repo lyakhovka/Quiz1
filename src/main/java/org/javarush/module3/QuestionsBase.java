@@ -5,11 +5,17 @@ import java.util.List;
 
 public class QuestionsBase {
     private static QuestionsBase instance;
-
     private final List<Question> questions;
-
+    private int correctAnswersAmount;
+    private int incorrectAnswersAmount;
     private  QuestionsBase(){
-        questions = new ArrayList<Question>();
+       questions = init();
+       correctAnswersAmount = 0;
+       incorrectAnswersAmount = 0;
+    }
+
+    private List<Question> init(){
+        List<Question> questions = new ArrayList<Question>();
 
         questions.add(new Question("What is the right shape to form an apple or pear tree?",
                 List.of("Cup shape",
@@ -60,8 +66,9 @@ public class QuestionsBase {
                         "Insecticide",
                         "Herbicide"),
                 0));
-    }
 
+        return questions;
+    }
     public static QuestionsBase getInstance(){
         if(instance == null){
             instance = new QuestionsBase();
@@ -71,5 +78,21 @@ public class QuestionsBase {
 
     public List<Question> getQuestions(){
         return questions;
+    }
+
+    public int getCorrectAnswersAmount(){
+        return correctAnswersAmount;
+    }
+
+    public int getIncorrectAnswersAmount(){
+        return incorrectAnswersAmount;
+    }
+
+    public void setCorrectAnswersAmount(int correctAnswersAmount){
+        this.correctAnswersAmount = correctAnswersAmount;
+    }
+
+    public void setIncorrectAnswersAmount(int incorrectAnswersAmount){
+        this.incorrectAnswersAmount = incorrectAnswersAmount;
     }
 }
